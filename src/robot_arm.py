@@ -65,27 +65,28 @@ def plot_robot_arm(theta1_deg, theta2_deg):
     plt.show()
 
 
-#Test forward kinematics
-theta1 = 45
-theta2 = 30
+if __name__ == "__main__":
+    #Test forward kinematics
+    theta1 = 45
+    theta2 = 30
 
-elbow, end_effector = forward_kinematics(theta1, theta2)
+    elbow, end_effector = forward_kinematics(theta1, theta2)
 
-print("Elbow position:", elbow)
-print("End-effector position:", end_effector)
+    print("Elbow position:", elbow)
+    print("End-effector position:", end_effector)
 
-plot_robot_arm(theta1, theta2)
+    plot_robot_arm(theta1, theta2)
 
-# Test inverse kinematics
-target_x = 1.0
-target_y = 0.5
+    # Test inverse kinematics
+    target_x = 1.0
+    target_y = 0.5
 
-angles = inverse_kinematics(target_x, target_y)
+    angles = inverse_kinematics(target_x, target_y)
 
-if angles is not None:
-    print("Target joint angles:", angles)
+    if angles is not None:
+        print("Target joint angles:", angles)
 
-    elbow, end_effector = forward_kinematics(*angles)
-    print("Reached position:", end_effector)
-else:
-    print("Target is outside the robot's reachable workspace.")
+        elbow, end_effector = forward_kinematics(*angles)
+        print("Reached position:", end_effector)
+    else:
+        print("Target is outside the robot's reachable workspace.")
