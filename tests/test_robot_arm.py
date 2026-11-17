@@ -1,12 +1,12 @@
 import unittest
-import numpy as np
 
-from src.robot_arm import(
-    forward_kinematics,
-    inverse_kinematics,
+from src.robot_arm import (
     L1,
     L2,
+    forward_kinematics,
+    inverse_kinematics,
 )
+
 
 class TestRobotArm(unittest.TestCase):
     def test_forwardkinematics_at_zero_angles(self):
@@ -46,14 +46,9 @@ class TestRobotArm(unittest.TestCase):
 
                 _, reached_position = forward_kinematics(*angles)
 
-                self.assertAlmostEqual(
-                    reached_position[0], target_x, places=7
-                )
+                self.assertAlmostEqual(reached_position[0], target_x, places=7)
 
-                self.assertAlmostEqual(
-                    reached_position[1], target_y, places=7
-                )
-
+                self.assertAlmostEqual(reached_position[1], target_y, places=7)
 
     def test_maximum_reach_boundary(self):
         angles = inverse_kinematics(L1 + L2, 0)
@@ -76,14 +71,14 @@ class TestRobotArm(unittest.TestCase):
         self.assertAlmostEqual(end_effector[1], 0.0)
 
     def test_unreachable_target_is_rejected(self):
-            angles = inverse_kinematics(L1 + L2 + 0.1, 0)
-    
-            self.assertIsNone(angles)
+        angles = inverse_kinematics(L1 + L2 + 0.1, 0)
+        self.assertIsNone(angles)
 
     def test_target_inside_inner_unreachable_region(self):
         angles = inverse_kinematics(0.1, 0)
 
         self.assertIsNone(angles)
+
 
 if __name__ == "__main__":
     unittest.main()
